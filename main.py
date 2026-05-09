@@ -2,13 +2,18 @@ import json
 from sys import argv
 
 def report_aggregator(jsonFile):
+    data = {}
+
     with open(jsonFile) as jFile:
         for entry in jFile:
             entryItem = json.loads(entry)
-            if entryItem['eventid'] == 'cowrie.login.failed'
+            if entryItem['eventid'] == 'cowrie.login.failed' or entryItem['eventid'] == 'cowrie.login.success':
+                if entryItem['src_ip'] not in data:
+                    data[entryItem['src_ip']] = [1,entryItem['timestamp']]
+    return data
 
 def main():
-    report_aggregator(argv[1])
+    data = report_aggregator(argv[1])
 
 if __name__ == '__main__':
     main()
