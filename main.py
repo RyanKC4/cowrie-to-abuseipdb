@@ -23,7 +23,8 @@ def report_organizer(data):
     writer.writerow(['IP','Categories','ReportDate','Comment'])
 
     for ip,info in data.items():
-        writer.writerow([ip,'18,22',info[1],f"Brute-force: {info[0]} connection attempts within 24 hours starting at {info[1]}."])
+        if info[0] >= 5:
+            writer.writerow([ip,'18,22',info[1],f"Brute-force: {info[0]} connection attempts within 24 hours starting at {info[1]}."])
 
     data_io.seek(0)
     return data_io
